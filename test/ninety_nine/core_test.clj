@@ -56,8 +56,21 @@
     (is (= '((1 1) (2 2) (3 3) (4 4)) (nn-encode '(1 2 2 3 3 3 4 4 4 4))))
     ))
 
+(def abbcccdddd-coll (seq "abbcccdddd"))
+
 (deftest nn-11
   (testing "encode modified"
     (is (= '(\a (2 \b) (3 \c) (4 \d) )  (nn-encode-modified
-                                         '(\a \b \b \c \c \c \d \d \d \d))))
+                                         abbcccdddd-coll)))
     ))
+
+(deftest nn-11
+  (testing "decode"
+    (is (= abbcccdddd-coll (nn-decode (nn-encode abbcccdddd-coll))))
+    ))
+
+(deftest nn-12
+  (testing "encode direct"
+    (is (= (nn-encode abbcccdddd-coll)  (nn-encode-direct abbcccdddd-coll) ))
+)
+)

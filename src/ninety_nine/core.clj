@@ -67,9 +67,24 @@
     )
   )
 
-(defn nn-encode [coll]
+(defn nn-encode-1 [coll]
   (map #(cons (nn-count %) (cons (first %) ())) (nn-pack coll))
   )
+
+;; #(%) expands to (fn [a] (a)) and not (fn [a] a)
+;; #(-> %) expands to (fn [a] (-> a)) and the threading macro
+;; expands to (fn [a] a)
+(defn nn-encode-2 [coll]
+  (map #(-> [(nn-count %) (first %)]) (nn-pack coll))
+  )
+
+;; using list instead of vector for response requires
+;; syntax quote and unquote.
+(defn nn-encode-3 [coll]
+  (map #(-> `(~(nn-count %) ~(first %))) (nn-pack coll))
+  )
+
+(def nn-encode nn-encode-3)
 
 (defn nn-encode-modified [coll]
   (map #(let [c (nn-count %)
@@ -79,3 +94,21 @@
             (cons c (cons e ()))))
        (nn-pack coll))
   )
+
+(defn nn-decode [coll]
+  (nn-flatten
+   (map #(let [[c e] %] (repeat c e)) coll))
+  )
+
+(defn nn-encode-direct [coll]
+  (loop [res () times 1 elem (first coll) wcoll (rest coll)]
+    (if (seq wcoll)
+      (let [e (first wcoll) r (rest wcoll)]
+        (if (= elem e)
+          (recur res (inc times) e r)
+          (recur (cons [times elem] res) 1 e r)
+          )
+        )
+      (nn-reverse (cons [times elem] res)))
+    )
+)
