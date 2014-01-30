@@ -123,3 +123,7 @@
   )
 
 (def nn-duplicate nn-duplicate-2)
+
+(defn nn-duplicate-n [n coll]
+  (nn-flatten (map #(repeat n %) coll))
+  )
