@@ -72,5 +72,16 @@
 (deftest nn-13
   (testing "encode direct"
     (is (= (nn-encode abbcccdddd-coll)  (nn-encode-direct abbcccdddd-coll) ))
-)
-)
+    )
+  )
+
+(deftest nn-14
+  (testing "duplicate elements list")
+  (is (= (seq "aabbbbccdd") (nn-duplicate (seq "abbcd"))))
+  )
+
+(deftest nn-15
+  (testing "duplicate elements list n times"
+    (is (= (seq "aaabbbbbbcccddd")
+           (nn-duplicate-n 3 (seq "abbcd"))))
+    ))
