@@ -64,12 +64,12 @@
                                          abbcccdddd-coll)))
     ))
 
-(deftest nn-11
+(deftest nn-12
   (testing "decode"
     (is (= abbcccdddd-coll (nn-decode (nn-encode abbcccdddd-coll))))
     ))
 
-(deftest nn-12
+(deftest nn-13
   (testing "encode direct"
     (is (= (nn-encode abbcccdddd-coll)  (nn-encode-direct abbcccdddd-coll) ))
 )
