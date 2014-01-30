@@ -111,19 +111,30 @@
         )
       (nn-reverse (cons [times elem] res)))
     )
-  )
+)
 
 ;; interleave feels a bit like cheating
 (defn nn-duplicate-1 [coll]
   (interleave coll coll)
-  )
+)
 
 (defn nn-duplicate-2 [coll]
   (nn-flatten (map #(-> [% %]) coll))
-  )
+)
 
 (def nn-duplicate nn-duplicate-2)
 
 (defn nn-duplicate-n [n coll]
-  (nn-flatten (map #(repeat n %) coll))
+ (nn-flatten (map #(repeat n %) coll))
+)
+
+(defn nn-drop [nth coll]
+  (loop [res () i nth wcoll coll]
+    (if (seq wcoll)
+      (if (= 1 i)
+        (recur res nth (rest wcoll))
+        (recur (cons (first wcoll) res) (dec i) (rest wcoll))
+        )
+      (nn-reverse res))
+    )
   )

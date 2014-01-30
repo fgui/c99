@@ -85,3 +85,9 @@
     (is (= (seq "aaabbbbbbcccddd")
            (nn-duplicate-n 3 (seq "abbcd"))))
     ))
+
+(deftest nn-16
+  (testing "drop nth list"
+    (is (= (seq "abdeg") (nn-drop 3 (seq "abcdefg"))))
+    )
+  )
