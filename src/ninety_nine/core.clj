@@ -128,6 +128,7 @@
  (nn-flatten (map #(repeat n %) coll))
 )
 
+;; could this be done lazy-seq?
 (defn nn-drop [nth coll]
   (loop [res () i nth wcoll coll]
     (if (seq wcoll)
@@ -138,3 +139,8 @@
       (nn-reverse res))
     )
   )
+
+;; too easy feels like cheating
+(defn nn-split [n coll]
+  [(take n coll) (drop n coll)]
+)

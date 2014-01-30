@@ -91,3 +91,17 @@
     (is (= (seq "abdeg") (nn-drop 3 (seq "abcdefg"))))
     )
   )
+
+;; got tired of writing deftest testing is =
+;; my first clojure macro hurray!!
+(defmacro defexpect [name description got expected]
+  `(deftest ~name
+     (testing ~description
+       (is (= ~expected ~got))
+))
+)
+
+;; just testing the macro
+(defexpect nn-16-2 "drop nth list" (seq "abdeg") (nn-drop 3 (seq "abcdefg")))
+
+(defexpect nn-17 "split in 2 list" [[1 2 3][4 5 6 7]] (nn-split 3 [1 2 3 4 5 6 7]) )
