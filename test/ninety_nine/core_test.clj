@@ -114,3 +114,6 @@
     (is (= [5 6 1 2 3 4] (nn-rotate -2 [1 2 3 4 5 6])))
     )
   )
+
+
+(defexpect nn-20 "remove at" [[1 3 4] 2] (nn-remove-at 1 [1 2 3 4]))

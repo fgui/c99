@@ -149,8 +149,22 @@
   (take (- j i) (drop i coll))
 )
 
-(defn nn-rotate [i coll]
-  (let [x (nn-split (mod i (nn-count coll)) coll)]
+(defn nn-rotate-1 [i coll]
+    (let [x (nn-split (mod i (nn-count coll)) coll)]
     (concat (last x) (first x))
     )
+)
+
+(defn nn-rotate-2 [i coll]
+    (let [[a b] (nn-split (mod i (nn-count coll)) coll)]
+    (concat b a)
+    )
+)
+
+(def nn-rotate nn-rotate-2)
+
+(defn nn-remove-at [i coll]
+  (let [[a b] (nn-split (mod i (nn-count coll)) coll)]
+    [(concat a (rest b)) (first b)]
+  )
 )
