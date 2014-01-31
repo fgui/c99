@@ -144,3 +144,13 @@
 (defn nn-split [n coll]
   [(take n coll) (drop n coll)]
 )
+
+(defn nn-slice [i j coll]
+  (take (- j i) (drop i coll))
+)
+
+(defn nn-rotate [i coll]
+  (let [x (nn-split (mod i (nn-count coll)) coll)]
+    (concat (last x) (first x))
+    )
+)

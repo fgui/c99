@@ -105,3 +105,12 @@
 (defexpect nn-16-2 "drop nth list" (seq "abdeg") (nn-drop 3 (seq "abcdefg")))
 
 (defexpect nn-17 "split in 2 list" [[1 2 3][4 5 6 7]] (nn-split 3 [1 2 3 4 5 6 7]) )
+
+(defexpect nn-18 "slice" [4 5 6 7] (nn-slice 3 7 [1 2 3 4 5 6 7 8]))
+
+(deftest nn-19
+  (testing "rotate"
+    (is (= [4 5 6 1 2 3] (nn-rotate 3 [1 2 3 4 5 6])))
+    (is (= [5 6 1 2 3 4] (nn-rotate -2 [1 2 3 4 5 6])))
+    )
+  )
