@@ -168,3 +168,9 @@
     [(concat a (rest b)) (first b)]
   )
 )
+
+(defn nn-insert-at [i e coll]
+  (let [[a b] (nn-split i coll)]
+    (concat a [e] b)
+  )
+)
