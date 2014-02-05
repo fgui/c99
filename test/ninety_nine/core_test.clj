@@ -120,3 +120,7 @@
 
 
 (defexpect nn-21 "insert at" [:a :new :b :c] (nn-insert-at 1 :new [:a :b :c]))
+
+(defexpect nn-22-1 "range" [8 9 10 11] (nn-range-1 8 11))
+
+(defexpect nn-22-2 "range" [8 9 10 11] (nn-range-2 8 11))

@@ -111,22 +111,22 @@
         )
       (nn-reverse (cons [times elem] res)))
     )
-)
+  )
 
 ;; interleave feels a bit like cheating
 (defn nn-duplicate-1 [coll]
   (interleave coll coll)
-)
+  )
 
 (defn nn-duplicate-2 [coll]
   (nn-flatten (map #(-> [% %]) coll))
-)
+  )
 
 (def nn-duplicate nn-duplicate-2)
 
 (defn nn-duplicate-n [n coll]
- (nn-flatten (map #(repeat n %) coll))
-)
+  (nn-flatten (map #(repeat n %) coll))
+  )
 
 ;; could this be done lazy-seq?
 (defn nn-drop [nth coll]
@@ -143,34 +143,48 @@
 ;; too easy feels like cheating
 (defn nn-split [n coll]
   [(take n coll) (drop n coll)]
-)
+  )
 
 (defn nn-slice [i j coll]
   (take (- j i) (drop i coll))
-)
+  )
 
 (defn nn-rotate-1 [i coll]
-    (let [x (nn-split (mod i (nn-count coll)) coll)]
+  (let [x (nn-split (mod i (nn-count coll)) coll)]
     (concat (last x) (first x))
     )
-)
+  )
 
 (defn nn-rotate-2 [i coll]
-    (let [[a b] (nn-split (mod i (nn-count coll)) coll)]
+  (let [[a b] (nn-split (mod i (nn-count coll)) coll)]
     (concat b a)
     )
-)
+  )
 
 (def nn-rotate nn-rotate-2)
 
 (defn nn-remove-at [i coll]
   (let [[a b] (nn-split (mod i (nn-count coll)) coll)]
     [(concat a (rest b)) (first b)]
+    )
   )
-)
 
 (defn nn-insert-at [i e coll]
   (let [[a b] (nn-split i coll)]
     (concat a [e] b)
+    )
   )
-)
+
+;; with take and iterate
+(defn nn-range-1 [from to]
+  (take (- (inc to) from) (iterate inc from))
+  )
+
+;; with lazy sequence
+(defn nn-range-2 [from to]
+  (if (= from to)
+    (cons from ())
+    (cons from (lazy-seq (nn-range-2 (inc from) to))))
+  )
+
+(def nn-range nn-range-1)
