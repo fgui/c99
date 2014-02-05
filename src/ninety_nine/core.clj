@@ -188,3 +188,11 @@
   )
 
 (def nn-range nn-range-1)
+
+(defn nn-random-remove [i coll]
+    (if (zero? i)
+      coll
+      (recur (dec i) (first (nn-remove-at (rand-int (nn-count coll)) coll))))
+    )
+
+(defn nn-random-select [i coll] (nn-random-remove (- (nn-count coll) i) coll) )

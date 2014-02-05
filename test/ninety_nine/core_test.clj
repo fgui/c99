@@ -1,6 +1,7 @@
 (ns ninety-nine.core-test
   (:require [clojure.test :refer :all]
-            [ninety-nine.core :refer :all]))
+            [ninety-nine.core :refer :all]
+            [clojure.set :as cs]))
 
 (deftest nn-1
   (testing "last"
@@ -104,7 +105,8 @@
 ;; just testing the macro
 (defexpect nn-16-2 "drop nth list" (seq "abdeg") (nn-drop 3 (seq "abcdefg")))
 
-(defexpect nn-17 "split in 2 list" [[1 2 3][4 5 6 7]] (nn-split 3 [1 2 3 4 5 6 7]) )
+(defexpect nn-17 "split in 2 list" [[1 2 3][4 5 6 7]]
+  (nn-split 3 [1 2 3 4 5 6 7]) )
 
 (defexpect nn-18 "slice" [4 5 6 7] (nn-slice 3 7 [1 2 3 4 5 6 7 8]))
 
@@ -124,3 +126,13 @@
 (defexpect nn-22-1 "range" [8 9 10 11] (nn-range-1 8 11))
 
 (defexpect nn-22-2 "range" [8 9 10 11] (nn-range-2 8 11))
+
+(deftest nn-23
+  (testing "random select"
+    (let [a  [:a :b :c :d :e :f]
+          sel (nn-random-select 3 a)]
+      (is (= (set  sel) (cs/intersection (set sel) (set a)))
+      )
+    )
+  )
+)
