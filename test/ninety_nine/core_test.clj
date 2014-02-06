@@ -99,8 +99,8 @@
   `(deftest ~name
      (testing ~description
        (is (= ~expected ~got))
-))
-)
+       ))
+  )
 
 ;; just testing the macro
 (defexpect nn-16-2 "drop nth list" (seq "abdeg") (nn-drop 3 (seq "abcdefg")))
@@ -132,7 +132,17 @@
     (let [a  [:a :b :c :d :e :f]
           sel (nn-random-select 3 a)]
       (is (= (set  sel) (cs/intersection (set sel) (set a)))
+          )
       )
     )
   )
-)
+
+(deftest nn-24
+  (testing "Lotto"
+    (let [lotto (nn-lotto 2 49)]
+      (is (= 2 (nn-count lotto)))
+      (is (cs/subset?
+           (set lotto)
+           (set (range 1 50)))))
+    )
+  )
