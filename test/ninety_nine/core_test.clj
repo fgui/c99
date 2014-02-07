@@ -120,7 +120,6 @@
 
 (defexpect nn-20 "remove at" [[1 3 4] 2] (nn-remove-at 1 [1 2 3 4]))
 
-
 (defexpect nn-21 "insert at" [:a :new :b :c] (nn-insert-at 1 :new [:a :b :c]))
 
 (defexpect nn-22-1 "range" [8 9 10 11] (nn-range-1 8 11))
@@ -144,5 +143,12 @@
       (is (cs/subset?
            (set lotto)
            (set (range 1 50)))))
+    )
+  )
+
+;; the sets should be the same after permutation
+(deftest nn-25
+  (testing "random permutations"
+    (is (= (set [1 2 3 4 5]) (set (nn-random-permutation [1 2 3 4 5]))))
     )
   )

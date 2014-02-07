@@ -200,3 +200,12 @@
 (defn nn-lotto [num-select num-range]
   (nn-random-select num-select (range 1 (inc num-range)))
   )
+
+(defn nn-random-permutation [coll]
+  (loop [res () w-coll coll]
+    (let [[n-coll e] (nn-remove-at (rand-int (nn-count w-coll)) w-coll)]
+      (if (seq n-coll)
+        (recur (cons e res) n-coll)
+        (cons e res))
+      ))
+  )
