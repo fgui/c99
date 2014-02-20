@@ -1,6 +1,6 @@
-(ns ninety-nine.core-test
+(ns ninety-nine.list-test
   (:require [clojure.test :refer :all]
-            [ninety-nine.core :refer :all]
+            [ninety-nine.list :refer :all]
             [clojure.set :as cs]))
 
 (deftest nn-1

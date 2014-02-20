@@ -1,4 +1,4 @@
-(ns ninety-nine.core
+(ns ninety-nine.list
   (:gen-class))
 
 (defn nn-reverse-1 "reverse implemented with recur cons rest and first" [coll]
