@@ -209,3 +209,23 @@
         (cons e res))
       ))
   )
+
+;; [] [1 2 3] -> [1] [2 3]
+
+;; [ [[] [1 2 3]] ] -> [ [[1] [2 3]] [[2] [1 3]] [[3] [1 2]] ]
+(defn nn-combination-next [combinations]
+  (reduce concat [] (map
+                     (fn [[curr comb]]
+                       (map (fn [x] [(conj curr x) (remove (partial = x) comb)])
+                            comb))
+                     combinations)))
+
+;; there is an error waiting to be found when we reach the max combinations.
+(defn nn-combination-seq "lazy sequence of combinations" [comb]
+  (iterate nn-combination-next comb)
+)
+
+;; works by navigating the sequence of combinations
+(defn nn-combinations [n coll]
+  (map first (nth (nn-combination-seq [[[] coll]]) n))
+  )

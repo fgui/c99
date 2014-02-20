@@ -152,3 +152,7 @@
     (is (= (set [1 2 3 4 5]) (set (nn-random-permutation [1 2 3 4 5]))))
     )
   )
+
+(defexpect nn-26 "combinations"  6 (nn-count (nn-combinations 2 [:a :b :c])))
+
+(defexpect nn-26-2 "combinations" 5040 (nn-count (nn-combinations 4 (range 10))))
